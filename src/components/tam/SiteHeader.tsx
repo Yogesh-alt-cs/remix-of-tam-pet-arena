@@ -23,10 +23,13 @@ export function SiteHeader() {
           <Link to="/hatch" className="font-mono-ui text-[12px] px-3 py-2 rounded-md hover:bg-muted transition-colors" activeProps={{ className: "bg-muted" }}>
             Hatch
           </Link>
+          <Link to="/arena" search={{ pet: "", mode: "quick" }} className="font-mono-ui text-[12px] px-3 py-2 rounded-md hover:bg-muted transition-colors" activeProps={{ className: "bg-muted" }}>
+            Arena
+          </Link>
           <Link to="/marketplace" className="font-mono-ui text-[12px] px-3 py-2 rounded-md hover:bg-muted transition-colors" activeProps={{ className: "bg-muted" }}>
             Marketplace
           </Link>
-          {["Arena", "Leaderboards"].map((label) => (
+          {["Leaderboards"].map((label) => (
             <a
               key={label}
               href="/"
