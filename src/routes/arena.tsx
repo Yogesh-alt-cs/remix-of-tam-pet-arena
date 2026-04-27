@@ -237,7 +237,7 @@ function ArenaPage() {
             <ModeSelect
               value={mode}
               disabled={phase !== "select"}
-              onChange={(m) => navigate({ search: (s: { pet?: string; mode?: ArenaMode }) => ({ ...s, mode: m }), replace: true })}
+              onChange={(m) => navigate({ search: (s) => ({ pet: s.pet ?? "", mode: m }), replace: true })}
             />
           </div>
         </div>
