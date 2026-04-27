@@ -43,8 +43,8 @@ export interface Species {
   element: Element;
   sprite: string;
   portrait: string;
-  idleFrames: string[];
-  battleFrames: string[];
+  idleFrames: readonly string[];
+  battleFrames: readonly string[];
   evolutionForms: string[];
   specialMove: string;
   rarityFrame: string;
