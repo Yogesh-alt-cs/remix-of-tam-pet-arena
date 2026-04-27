@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 import { SiteHeader } from "@/components/tam/SiteHeader";
 import { TactileButton } from "@/components/tam/TactileButton";
 import { Chip } from "@/components/tam/Chip";
+import { ConnectWalletModal } from "@/components/tam/ConnectWalletModal";
 import {
-  connectMetaMask,
   connectWallet,
   DEMO_ACCOUNTS,
-  hasMetaMask,
   shortAddr,
-  WalletError,
 } from "@/lib/wallet-store";
 
 interface Search {
@@ -50,11 +48,6 @@ function ConnectPage() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [showDemo, setShowDemo] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [mmAvailable, setMmAvailable] = useState(false);
-
-  useEffect(() => {
-    setMmAvailable(hasMetaMask());
-  }, []);
 
   const copy =
     (action ? ACTION_COPY[action] : undefined) ?? {
@@ -67,20 +60,6 @@ function ConnectPage() {
       window.location.href = redirect;
     } else {
       navigate({ to: "/" });
-    }
-  }
-
-  async function approveMetaMask() {
-    setError(null);
-    setPhase("approving");
-    try {
-      await connectMetaMask();
-      setPhase("approved");
-      setTimeout(routeBack, 700);
-    } catch (e) {
-      const err = e as WalletError;
-      setError(err?.message ?? "Failed to connect MetaMask.");
-      setPhase("idle");
     }
   }
 
@@ -114,62 +93,9 @@ function ConnectPage() {
           <p className="mt-3 text-muted-foreground">{copy.line}</p>
         </header>
 
-        {/* MetaMask card */}
-        <section className="mt-8 rounded-2xl border-2 border-ink bg-card shadow-[var(--shadow-card)] overflow-hidden">
-          <div className="flex items-center justify-between border-b-2 border-ink bg-muted px-5 py-2.5">
-            <span className="font-mono-ui text-[11px] uppercase tracking-wider">
-              wallet_provider · metamask
-            </span>
-            <span className="font-mono-ui text-[11px] flex items-center gap-2">
-              <span
-                className={`h-2 w-2 rounded-full ${mmAvailable ? "bg-success animate-pulse" : "bg-muted-foreground"}`}
-              />
-              polygon · chain 137
-            </span>
-          </div>
-
-          <div className="px-5 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-            <div className="flex items-center gap-4">
-              <span className="grid h-12 w-12 place-items-center rounded-md border-2 border-ink bg-[#f6851b] text-background font-display text-lg shadow-[0_3px_0_var(--ink)]">
-                🦊
-              </span>
-              <div>
-                <div className="font-display text-lg">MetaMask</div>
-                <div className="font-mono-ui text-[11px] text-muted-foreground">
-                  {mmAvailable
-                    ? "Detected in this browser. Approve in the popup."
-                    : "Not detected. Install the MetaMask extension to continue."}
-                </div>
-              </div>
-            </div>
-
-            {mmAvailable ? (
-              <TactileButton size="md" onClick={approveMetaMask} disabled={phase !== "idle"}>
-                {phase === "approving"
-                  ? "Awaiting signature…"
-                  : phase === "approved"
-                    ? "✓ Connected"
-                    : "Connect MetaMask"}
-              </TactileButton>
-            ) : (
-              <a
-                href="https://metamask.io/download/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <TactileButton size="md" variant="ghost">
-                  Install MetaMask ↗
-                </TactileButton>
-              </a>
-            )}
-          </div>
-
-          {error && (
-            <div className="border-t-2 border-ink bg-destructive/10 px-5 py-3 font-mono-ui text-[12px] text-destructive">
-              ⚠ {error}
-            </div>
-          )}
-        </section>
+        <div className="mt-8">
+          <ConnectWalletModal onConnected={routeBack} />
+        </div>
 
         {/* Demo fallback */}
         <div className="mt-8">

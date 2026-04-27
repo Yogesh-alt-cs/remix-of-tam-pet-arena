@@ -9,16 +9,48 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PokedexRouteImport } from './routes/pokedex'
+import { Route as PetsRouteImport } from './routes/pets'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as LeaderboardsRouteImport } from './routes/leaderboards'
+import { Route as HistoryRouteImport } from './routes/history'
 import { Route as HatchRouteImport } from './routes/hatch'
 import { Route as ConnectRouteImport } from './routes/connect'
+import { Route as BattleRouteImport } from './routes/battle'
 import { Route as ArenaRouteImport } from './routes/arena'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PetsPetIdRouteImport } from './routes/pets.$petId'
+import { Route as PetPetIdRouteImport } from './routes/pet.$petId'
 
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PokedexRoute = PokedexRouteImport.update({
+  id: '/pokedex',
+  path: '/pokedex',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PetsRoute = PetsRouteImport.update({
+  id: '/pets',
+  path: '/pets',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MarketplaceRoute = MarketplaceRouteImport.update({
   id: '/marketplace',
   path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaderboardsRoute = LeaderboardsRouteImport.update({
+  id: '/leaderboards',
+  path: '/leaderboards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HatchRoute = HatchRouteImport.update({
@@ -29,6 +61,11 @@ const HatchRoute = HatchRouteImport.update({
 const ConnectRoute = ConnectRouteImport.update({
   id: '/connect',
   path: '/connect',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BattleRoute = BattleRouteImport.update({
+  id: '/battle',
+  path: '/battle',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArenaRoute = ArenaRouteImport.update({
@@ -42,34 +79,60 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const PetsPetIdRoute = PetsPetIdRouteImport.update({
-  id: '/pets/$petId',
-  path: '/pets/$petId',
+  id: '/$petId',
+  path: '/$petId',
+  getParentRoute: () => PetsRoute,
+} as any)
+const PetPetIdRoute = PetPetIdRouteImport.update({
+  id: '/pet/$petId',
+  path: '/pet/$petId',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/arena': typeof ArenaRoute
+  '/battle': typeof BattleRoute
   '/connect': typeof ConnectRoute
   '/hatch': typeof HatchRoute
+  '/history': typeof HistoryRoute
+  '/leaderboards': typeof LeaderboardsRoute
   '/marketplace': typeof MarketplaceRoute
+  '/pets': typeof PetsRouteWithChildren
+  '/pokedex': typeof PokedexRoute
+  '/profile': typeof ProfileRoute
+  '/pet/$petId': typeof PetPetIdRoute
   '/pets/$petId': typeof PetsPetIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/arena': typeof ArenaRoute
+  '/battle': typeof BattleRoute
   '/connect': typeof ConnectRoute
   '/hatch': typeof HatchRoute
+  '/history': typeof HistoryRoute
+  '/leaderboards': typeof LeaderboardsRoute
   '/marketplace': typeof MarketplaceRoute
+  '/pets': typeof PetsRouteWithChildren
+  '/pokedex': typeof PokedexRoute
+  '/profile': typeof ProfileRoute
+  '/pet/$petId': typeof PetPetIdRoute
   '/pets/$petId': typeof PetsPetIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/arena': typeof ArenaRoute
+  '/battle': typeof BattleRoute
   '/connect': typeof ConnectRoute
   '/hatch': typeof HatchRoute
+  '/history': typeof HistoryRoute
+  '/leaderboards': typeof LeaderboardsRoute
   '/marketplace': typeof MarketplaceRoute
+  '/pets': typeof PetsRouteWithChildren
+  '/pokedex': typeof PokedexRoute
+  '/profile': typeof ProfileRoute
+  '/pet/$petId': typeof PetPetIdRoute
   '/pets/$petId': typeof PetsPetIdRoute
 }
 export interface FileRouteTypes {
@@ -77,38 +140,106 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/arena'
+    | '/battle'
     | '/connect'
     | '/hatch'
+    | '/history'
+    | '/leaderboards'
     | '/marketplace'
+    | '/pets'
+    | '/pokedex'
+    | '/profile'
+    | '/pet/$petId'
     | '/pets/$petId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/arena' | '/connect' | '/hatch' | '/marketplace' | '/pets/$petId'
+  to:
+    | '/'
+    | '/arena'
+    | '/battle'
+    | '/connect'
+    | '/hatch'
+    | '/history'
+    | '/leaderboards'
+    | '/marketplace'
+    | '/pets'
+    | '/pokedex'
+    | '/profile'
+    | '/pet/$petId'
+    | '/pets/$petId'
   id:
     | '__root__'
     | '/'
     | '/arena'
+    | '/battle'
     | '/connect'
     | '/hatch'
+    | '/history'
+    | '/leaderboards'
     | '/marketplace'
+    | '/pets'
+    | '/pokedex'
+    | '/profile'
+    | '/pet/$petId'
     | '/pets/$petId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ArenaRoute: typeof ArenaRoute
+  BattleRoute: typeof BattleRoute
   ConnectRoute: typeof ConnectRoute
   HatchRoute: typeof HatchRoute
+  HistoryRoute: typeof HistoryRoute
+  LeaderboardsRoute: typeof LeaderboardsRoute
   MarketplaceRoute: typeof MarketplaceRoute
-  PetsPetIdRoute: typeof PetsPetIdRoute
+  PetsRoute: typeof PetsRouteWithChildren
+  PokedexRoute: typeof PokedexRoute
+  ProfileRoute: typeof ProfileRoute
+  PetPetIdRoute: typeof PetPetIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pokedex': {
+      id: '/pokedex'
+      path: '/pokedex'
+      fullPath: '/pokedex'
+      preLoaderRoute: typeof PokedexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pets': {
+      id: '/pets'
+      path: '/pets'
+      fullPath: '/pets'
+      preLoaderRoute: typeof PetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/marketplace': {
       id: '/marketplace'
       path: '/marketplace'
       fullPath: '/marketplace'
       preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaderboards': {
+      id: '/leaderboards'
+      path: '/leaderboards'
+      fullPath: '/leaderboards'
+      preLoaderRoute: typeof LeaderboardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hatch': {
@@ -123,6 +254,13 @@ declare module '@tanstack/react-router' {
       path: '/connect'
       fullPath: '/connect'
       preLoaderRoute: typeof ConnectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/battle': {
+      id: '/battle'
+      path: '/battle'
+      fullPath: '/battle'
+      preLoaderRoute: typeof BattleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/arena': {
@@ -141,21 +279,44 @@ declare module '@tanstack/react-router' {
     }
     '/pets/$petId': {
       id: '/pets/$petId'
-      path: '/pets/$petId'
+      path: '/$petId'
       fullPath: '/pets/$petId'
       preLoaderRoute: typeof PetsPetIdRouteImport
+      parentRoute: typeof PetsRoute
+    }
+    '/pet/$petId': {
+      id: '/pet/$petId'
+      path: '/pet/$petId'
+      fullPath: '/pet/$petId'
+      preLoaderRoute: typeof PetPetIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
+interface PetsRouteChildren {
+  PetsPetIdRoute: typeof PetsPetIdRoute
+}
+
+const PetsRouteChildren: PetsRouteChildren = {
+  PetsPetIdRoute: PetsPetIdRoute,
+}
+
+const PetsRouteWithChildren = PetsRoute._addFileChildren(PetsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ArenaRoute: ArenaRoute,
+  BattleRoute: BattleRoute,
   ConnectRoute: ConnectRoute,
   HatchRoute: HatchRoute,
+  HistoryRoute: HistoryRoute,
+  LeaderboardsRoute: LeaderboardsRoute,
   MarketplaceRoute: MarketplaceRoute,
-  PetsPetIdRoute: PetsPetIdRoute,
+  PetsRoute: PetsRouteWithChildren,
+  PokedexRoute: PokedexRoute,
+  ProfileRoute: ProfileRoute,
+  PetPetIdRoute: PetPetIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
