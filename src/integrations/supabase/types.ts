@@ -14,7 +14,291 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      arena_battle_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          match_id: string
+          payload: Json
+          turn_number: number
+          wallet_address: string
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          match_id: string
+          payload?: Json
+          turn_number: number
+          wallet_address: string
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          match_id?: string
+          payload?: Json
+          turn_number?: number
+          wallet_address?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "arena_battle_events_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "arena_matches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      arena_chat_messages: {
+        Row: {
+          created_at: string
+          emoji: string | null
+          id: string
+          match_id: string
+          message: string | null
+          player_name: string
+          wallet_address: string
+        }
+        Insert: {
+          created_at?: string
+          emoji?: string | null
+          id?: string
+          match_id: string
+          message?: string | null
+          player_name: string
+          wallet_address: string
+        }
+        Update: {
+          created_at?: string
+          emoji?: string | null
+          id?: string
+          match_id?: string
+          message?: string | null
+          player_name?: string
+          wallet_address?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "arena_chat_messages_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "arena_matches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      arena_match_players: {
+        Row: {
+          connected_at: string | null
+          created_at: string
+          current_energy: number
+          current_hp: number
+          id: string
+          locked_at: string
+          match_id: string
+          pet_snapshot: Json
+          player_name: string
+          rating_after: number | null
+          rating_before: number
+          selected_pet_id: string
+          selected_species_id: string
+          side: string
+          wallet_address: string
+        }
+        Insert: {
+          connected_at?: string | null
+          created_at?: string
+          current_energy?: number
+          current_hp?: number
+          id?: string
+          locked_at?: string
+          match_id: string
+          pet_snapshot?: Json
+          player_name: string
+          rating_after?: number | null
+          rating_before?: number
+          selected_pet_id: string
+          selected_species_id: string
+          side: string
+          wallet_address: string
+        }
+        Update: {
+          connected_at?: string | null
+          created_at?: string
+          current_energy?: number
+          current_hp?: number
+          id?: string
+          locked_at?: string
+          match_id?: string
+          pet_snapshot?: Json
+          player_name?: string
+          rating_after?: number | null
+          rating_before?: number
+          selected_pet_id?: string
+          selected_species_id?: string
+          side?: string
+          wallet_address?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "arena_match_players_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "arena_matches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      arena_matches: {
+        Row: {
+          active_wallet_address: string | null
+          completed_at: string | null
+          created_at: string
+          id: string
+          mode: string
+          replay: Json
+          room_code: string | null
+          seed: string
+          started_at: string | null
+          status: string
+          token_awarded: number
+          turn_deadline_at: string | null
+          turn_number: number
+          updated_at: string
+          winner_wallet_address: string | null
+          xp_awarded: number
+        }
+        Insert: {
+          active_wallet_address?: string | null
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          mode: string
+          replay?: Json
+          room_code?: string | null
+          seed: string
+          started_at?: string | null
+          status?: string
+          token_awarded?: number
+          turn_deadline_at?: string | null
+          turn_number?: number
+          updated_at?: string
+          winner_wallet_address?: string | null
+          xp_awarded?: number
+        }
+        Update: {
+          active_wallet_address?: string | null
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          mode?: string
+          replay?: Json
+          room_code?: string | null
+          seed?: string
+          started_at?: string | null
+          status?: string
+          token_awarded?: number
+          turn_deadline_at?: string | null
+          turn_number?: number
+          updated_at?: string
+          winner_wallet_address?: string | null
+          xp_awarded?: number
+        }
+        Relationships: []
+      }
+      arena_queue: {
+        Row: {
+          created_at: string
+          estimated_wait_seconds: number
+          id: string
+          matched_id: string | null
+          mode: string
+          player_name: string
+          rating: number
+          room_code: string | null
+          selected_pet_id: string
+          selected_species_id: string
+          status: string
+          updated_at: string
+          wallet_address: string
+        }
+        Insert: {
+          created_at?: string
+          estimated_wait_seconds?: number
+          id?: string
+          matched_id?: string | null
+          mode: string
+          player_name: string
+          rating?: number
+          room_code?: string | null
+          selected_pet_id: string
+          selected_species_id: string
+          status?: string
+          updated_at?: string
+          wallet_address: string
+        }
+        Update: {
+          created_at?: string
+          estimated_wait_seconds?: number
+          id?: string
+          matched_id?: string | null
+          mode?: string
+          player_name?: string
+          rating?: number
+          room_code?: string | null
+          selected_pet_id?: string
+          selected_species_id?: string
+          status?: string
+          updated_at?: string
+          wallet_address?: string
+        }
+        Relationships: []
+      }
+      wallet_profiles: {
+        Row: {
+          avatar_species_id: string | null
+          created_at: string
+          display_name: string
+          id: string
+          last_seen_at: string
+          losses: number
+          rank_label: string
+          rating: number
+          updated_at: string
+          wallet_address: string
+          wins: number
+        }
+        Insert: {
+          avatar_species_id?: string | null
+          created_at?: string
+          display_name: string
+          id?: string
+          last_seen_at?: string
+          losses?: number
+          rank_label?: string
+          rating?: number
+          updated_at?: string
+          wallet_address: string
+          wins?: number
+        }
+        Update: {
+          avatar_species_id?: string | null
+          created_at?: string
+          display_name?: string
+          id?: string
+          last_seen_at?: string
+          losses?: number
+          rank_label?: string
+          rating?: number
+          updated_at?: string
+          wallet_address?: string
+          wins?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
