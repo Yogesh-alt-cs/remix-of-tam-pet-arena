@@ -30,7 +30,16 @@ export interface JoinQueueResult {
 }
 
 export async function joinQueue(args: JoinQueueArgs): Promise<JoinQueueResult> {
-  const { data, error } = await supabase.rpc("join_arena_queue", {
+  const rpcArgs: {
+    p_wallet_address: string;
+    p_player_name: string;
+    p_mode: string;
+    p_selected_pet_id: string;
+    p_selected_species_id: string;
+    p_pet_snapshot: never;
+    p_rating: number;
+    p_room_code?: string;
+  } = {
     p_wallet_address: args.walletAddress,
     p_player_name: args.playerName,
     p_mode: args.mode,
@@ -38,8 +47,9 @@ export async function joinQueue(args: JoinQueueArgs): Promise<JoinQueueResult> {
     p_selected_species_id: args.selectedSpeciesId,
     p_pet_snapshot: args.petSnapshot as never,
     p_rating: args.rating ?? 1000,
-    p_room_code: args.roomCode ?? null,
-  });
+  };
+  if (args.roomCode) rpcArgs.p_room_code = args.roomCode;
+  const { data, error } = await supabase.rpc("join_arena_queue", rpcArgs);
   if (error) throw new Error(error.message);
   const row = Array.isArray(data) ? data[0] : data;
   if (!row) throw new Error("join_arena_queue returned no row");
@@ -83,13 +93,20 @@ export async function postChat(args: {
   message?: string;
   emoji?: string;
 }): Promise<string> {
-  const { data, error } = await supabase.rpc("post_arena_chat", {
+  const rpcArgs: {
+    p_match_id: string;
+    p_wallet_address: string;
+    p_player_name: string;
+    p_message?: string;
+    p_emoji?: string;
+  } = {
     p_match_id: args.matchId,
     p_wallet_address: args.walletAddress,
     p_player_name: args.playerName,
-    p_message: args.message ?? undefined,
-    p_emoji: args.emoji ?? undefined,
-  });
+  };
+  if (args.message) rpcArgs.p_message = args.message;
+  if (args.emoji) rpcArgs.p_emoji = args.emoji;
+  const { data, error } = await supabase.rpc("post_arena_chat", rpcArgs);
   if (error) throw new Error(error.message);
   return data as string;
 }
