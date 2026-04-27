@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { bootstrapWallet } from "@/lib/wallet-store";
 
 import appCss from "../styles.css?url";
 
@@ -69,5 +71,10 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  useEffect(() => {
+    // Auto-reconnect injected wallet (no popup) and attach live listeners
+    // (accountsChanged / chainChanged / disconnect) on every page boot.
+    bootstrapWallet();
+  }, []);
   return <Outlet />;
 }
