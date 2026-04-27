@@ -13,7 +13,6 @@ import frostOwl from "@/assets/pets/frost-owl.png";
 import lavaSal from "@/assets/pets/lava-sal.png";
 import moonCat from "@/assets/pets/moon-cat.png";
 import ironDrake from "@/assets/pets/iron-drake.png";
-import cyberPanther from "@/assets/pets/cyber-panther.png";
 import phoenix from "@/assets/pets/phoenix.png";
 import divineLion from "@/assets/pets/divine-lion.png";
 import eclipseSerpent from "@/assets/pets/eclipse-serpent.png";
@@ -22,6 +21,8 @@ import originTam from "@/assets/pets/origin-tam.png";
 import voidEmperor from "@/assets/pets/void-emperor.png";
 // Reuse the legacy purple sprite for one extra Epic to keep roster at 20 unique.
 import petPurple from "@/assets/pet-purple.png";
+
+const cyberPanther = new URL("../assets/pets/cyber-panther.png", import.meta.url).href;
 
 export type Rarity = "Common" | "Uncommon" | "Rare" | "Epic" | "Legendary" | "Mythic";
 
