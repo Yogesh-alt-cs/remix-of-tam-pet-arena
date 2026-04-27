@@ -160,10 +160,8 @@ export function getWallet(): Wallet | null {
 }
 
 export function connectWallet(address: string, label: string): Wallet {
-  const w: Wallet = { address, label, connectedAt: Date.now() };
-  localStorage.setItem(KEY, JSON.stringify(w));
-  cache = w;
-  listeners.forEach((l) => l());
+  const w: Wallet = { address, label, connectedAt: Date.now(), provider: "demo" };
+  persist(w);
   return w;
 }
 
