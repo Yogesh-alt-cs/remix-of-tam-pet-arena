@@ -304,7 +304,46 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      cancel_arena_queue: {
+        Args: { p_wallet_address: string }
+        Returns: number
+      }
+      join_arena_queue: {
+        Args: {
+          p_mode: string
+          p_pet_snapshot?: Json
+          p_player_name: string
+          p_rating?: number
+          p_room_code?: string
+          p_selected_pet_id: string
+          p_selected_species_id: string
+          p_wallet_address: string
+        }
+        Returns: {
+          match_id: string
+          queue_id: string
+          status: string
+        }[]
+      }
+      post_arena_chat: {
+        Args: {
+          p_emoji?: string
+          p_match_id: string
+          p_message?: string
+          p_player_name: string
+          p_wallet_address: string
+        }
+        Returns: string
+      }
+      submit_arena_move: {
+        Args: {
+          p_match_id: string
+          p_move: string
+          p_payload?: Json
+          p_wallet_address: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
