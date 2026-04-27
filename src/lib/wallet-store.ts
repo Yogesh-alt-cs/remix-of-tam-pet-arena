@@ -181,8 +181,8 @@ async function requestAccounts(prov: Eip1193Provider, timeoutMs: number): Promis
       "Wallet approval",
     )) as string[];
   } catch (e) {
-    const err = e as { code?: number; message?: string } & WalletError;
-    if (err instanceof WalletError) throw err;
+    if (e instanceof WalletError) throw e;
+    const err = e as { code?: number; message?: string };
     if (err?.code === 4001) throw new WalletError("Connection request was rejected.", "user_rejected");
     if (err?.code === -32002)
       throw new WalletError(
