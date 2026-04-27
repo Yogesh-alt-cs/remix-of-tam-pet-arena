@@ -20,7 +20,7 @@ export interface JoinQueueArgs {
   selectedSpeciesId: string;
   petSnapshot: Record<string, unknown>;
   rating?: number;
-  roomCode?: string | null;
+  roomCode?: string;
 }
 
 export interface JoinQueueResult {
@@ -87,8 +87,8 @@ export async function postChat(args: {
     p_match_id: args.matchId,
     p_wallet_address: args.walletAddress,
     p_player_name: args.playerName,
-    p_message: args.message ?? null,
-    p_emoji: args.emoji ?? null,
+    p_message: args.message ?? undefined,
+    p_emoji: args.emoji ?? undefined,
   });
   if (error) throw new Error(error.message);
   return data as string;
