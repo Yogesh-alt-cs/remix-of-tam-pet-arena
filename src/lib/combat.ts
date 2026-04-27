@@ -41,12 +41,18 @@ export const STATUS_LABEL: Record<StatusKind, { label: string; tone: string; gly
   burn: { label: "Burn", tone: "text-warning", glyph: "🔥" },
   freeze: { label: "Freeze", tone: "text-arcade", glyph: "❄" },
   shock: { label: "Shock", tone: "text-secondary", glyph: "⚡" },
+  sleep: { label: "Sleep", tone: "text-muted-foreground", glyph: "💤" },
+  rage: { label: "Rage", tone: "text-destructive", glyph: "💢" },
+  regen: { label: "Regen", tone: "text-success", glyph: "✚" },
 };
 
 const STATUS_DOT: Record<StatusKind, number> = {
   burn: 6,
   freeze: 0,
   shock: 4,
+  sleep: 0,
+  rage: 0,
+  regen: -5,
 };
 
 function roll(min: number, max: number) {
